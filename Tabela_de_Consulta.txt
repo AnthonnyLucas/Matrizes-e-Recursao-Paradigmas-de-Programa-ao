@@ -1,0 +1,151 @@
+================================================================================
+  TABELA DE CONSULTA — Lista de Exercícios: Matrizes e Recursão
+  UFRPE - Unidade Acadêmica de Belo Jardim | Paradigmas de Programação
+================================================================================
+  Como usar este arquivo:
+  - Cada entrada da tabela descreve uma função do arquivo "s.py".
+  - Colunas: Questão | Nome da Função | Parâmetros | O que retorna | Exemplo
+  - Para modificar uma função, localize-a no arquivo pelo "Nome da Função".
+================================================================================
+
+--------------------------------------------------------------------------------
+PARTE I — MATRIZES
+--------------------------------------------------------------------------------
+
+Q.  | NOME DA FUNÇÃO          | PARÂMETROS          | RETORNA                         | EXEMPLO
+----|-------------------------|---------------------|---------------------------------|-------------------------------------------
+ 1  | soma_todos_elementos    | matriz (lista 2D)   | int/float — soma de tudo        | soma_todos_elementos([[1,2],[3,4]])  → 10
+ 2  | maior_elemento          | matriz (lista 2D)   | int/float — maior valor         | maior_elemento([[3,7],[2,9],[5,1]])  → 9
+ 3  | soma_diagonal_principal | matriz (lista 2D)   | int/float — soma da diagonal    | soma_diagonal_principal([[1,2,3],[4,5,6],[7,8,9]])  → 15
+ 4  | transposta              | matriz (lista 2D)   | lista 2D — matriz transposta    | transposta([[1,2,3],[4,5,6]])  → [[1,4],[2,5],[3,6]]
+ 5  | multiplicacao_escalar   | matriz, k (int)     | lista 2D — matriz multiplicada  | multiplicacao_escalar([[1,2],[3,4]], 3)  → [[3,6],[9,12]]
+ 6  | eh_matriz_identidade    | matriz (lista 2D)   | bool — True ou False            | eh_matriz_identidade([[1,0],[0,1]])  → True
+ 7  | soma_matrizes           | A, B (listas 2D)    | lista 2D — soma elemento a elem | soma_matrizes([[1,2],[3,4]],[[5,6],[7,8]])  → [[6,8],[10,12]]
+ 8  | contar_maiores_que      | matriz, X (número)  | int — quantidade de elementos   | contar_maiores_que([[1,5,3],[8,2,7]], 4)  → 3
+ 9  | linha_com_maior_soma    | matriz (lista 2D)   | int — índice da linha           | linha_com_maior_soma([[1,2,3],[9,0,1],[4,4,4]])  → 2
+10  | media_todos_elementos   | matriz (lista 2D)   | float — média aritmética        | media_todos_elementos([[2,4],[6,8]])  → 5.0
+
+--------------------------------------------------------------------------------
+PARTE II — RECURSÃO  (atenção: estas funções NÃO usam laços for/while)
+--------------------------------------------------------------------------------
+
+Q.  | NOME DA FUNÇÃO          | PARÂMETROS          | RETORNA                         | EXEMPLO
+----|-------------------------|---------------------|---------------------------------|-------------------------------------------
+11  | fatorial                | n (int ≥ 0)         | int — n!                        | fatorial(5)  → 120
+12  | fibonacci               | n (int ≥ 0)         | int — n-ésimo termo             | fibonacci(6)  → 8
+13  | soma_ate_n              | n (int > 0)         | int — soma 1+2+...+n            | soma_ate_n(4)  → 10
+14  | potencia                | b (base), e (exp≥0) | int — b elevado a e             | potencia(2, 10)  → 1024
+15  | contar_digitos          | n (int > 0)         | int — quantidade de dígitos     | contar_digitos(4823)  → 4
+16  | inverter_string         | s (str)             | str — string invertida          | inverter_string("python")  → "nohtyp"
+17  | eh_palindromo           | s (str)             | bool — True ou False            | eh_palindromo("radar")  → True
+18  | soma_digitos            | n (int > 0)         | int — soma dos dígitos          | soma_digitos(1234)  → 10
+
+================================================================================
+DETALHES DE CADA FUNÇÃO — Para quem quer entender a lógica antes de modificar
+================================================================================
+
+[Q1] soma_todos_elementos(matriz)
+     Lógica  : Dois laços aninhados percorrem cada elemento da matriz e acumulam
+               a soma em uma variável iniciada em 0.
+     Modificar: Para calcular o produto em vez da soma, troque "total += elem"
+                por "total *= elem" e inicialize total = 1.
+
+[Q2] maior_elemento(matriz)
+     Lógica  : Começa com o primeiro elemento (matriz[0][0]) como candidato a maior,
+               depois compara com todos os outros, atualizando sempre que achar um valor maior.
+     Modificar: Para retornar o MENOR elemento, troque ">" por "<" na comparação
+                e renomeie as variáveis para maior clareza.
+
+[Q3] soma_diagonal_principal(matriz)
+     Lógica  : Itera com um único índice i de 0 a n-1 e acessa matriz[i][i],
+               que corresponde aos elementos da diagonal principal.
+     Modificar: Para somar a diagonal secundária, troque matriz[i][i] por
+                matriz[i][n-1-i], sendo n = len(matriz).
+
+[Q4] transposta(matriz)
+     Lógica  : Para cada coluna j da original, cria uma nova linha com os
+               valores de cada linha i → nova_linha.append(matriz[i][j]).
+     Modificar: Pode ser reescrita com compreensão de listas:
+                [[matriz[i][j] for i in range(m)] for j in range(n)]
+
+[Q5] multiplicacao_escalar(matriz, k)
+     Lógica  : Percorre todos os elementos com dois laços e multiplica cada um por k,
+               construindo uma nova matriz com os valores resultantes.
+     Modificar: Para divisão, troque "elem * k" por "elem / k".
+                Para potência, troque por "elem ** k".
+
+[Q6] eh_matriz_identidade(matriz)
+     Lógica  : Para cada posição (i, j): se i == j exige valor 1 (diagonal principal),
+               senão exige valor 0. Retorna False na primeira violação encontrada.
+     Modificar: Para verificar também se a matriz é quadrada antes de checar,
+                adicione no início: if len(matriz) != len(matriz[0]): return False
+
+[Q7] soma_matrizes(A, B)
+     Lógica  : Soma A[i][j] + B[i][j] para cada posição (i, j),
+               construindo uma nova matriz com os valores somados.
+     Modificar: Para subtração, troque "+" por "-".
+                Para multiplicação elemento a elemento, troque por "*".
+
+[Q8] contar_maiores_que(matriz, X)
+     Lógica  : Percorre todos os elementos e incrementa o contador
+               sempre que um elemento for estritamente maior que X.
+     Modificar: Para contar elementos MENORES que X, troque ">" por "<".
+                Para contar elementos IGUAIS a X, troque ">" por "==".
+
+[Q9] linha_com_maior_soma(matriz)
+     Lógica  : Calcula a soma de cada linha e guarda o índice da linha
+               com a maior soma encontrada até o momento.
+     Modificar: Para retornar o índice da linha com MENOR soma,
+                troque ">" por "<" na comparação entre somas.
+
+[Q10] media_todos_elementos(matriz)
+      Lógica  : Soma todos os elementos e conta a quantidade total (m × n).
+                Divide a soma pelo total para obter a média aritmética.
+      Modificar: Para calcular a mediana, seria necessário coletar todos os
+                 elementos em uma lista, ordená-los e identificar o valor central.
+
+[Q11] fatorial(n)
+      Lógica  : fatorial(0) = 1 (caso base); fatorial(n) = n * fatorial(n-1).
+      Atenção : Não passe valores negativos — causará recursão infinita sem caso base.
+
+[Q12] fibonacci(n)
+      Lógica  : fibonacci(0) = 0, fibonacci(1) = 1 (casos base);
+                fibonacci(n) = fibonacci(n-1) + fibonacci(n-2).
+      Atenção : Para n grandes (acima de 35) pode ser lento, pois recalcula os mesmos
+                sub-problemas repetidamente. Considere usar memoização para otimizar.
+
+[Q13] soma_ate_n(n)
+      Lógica  : soma_ate_n(1) = 1 (caso base); soma_ate_n(n) = n + soma_ate_n(n-1).
+      Dica    : O resultado é equivalente à fórmula fechada n*(n+1)/2.
+
+[Q14] potencia(b, e)
+      Lógica  : potencia(b, 0) = 1 (caso base); potencia(b, e) = b * potencia(b, e-1).
+      Atenção : O expoente deve ser ≥ 0 conforme especificado no enunciado.
+
+[Q15] contar_digitos(n)
+      Lógica  : Se n < 10, tem 1 dígito (caso base); senão 1 + contar_digitos(n // 10).
+                Dividir por 10 remove o último dígito a cada chamada recursiva.
+      Modificar: Para funcionar corretamente com n = 0, adicione no início:
+                 if n == 0: return 1
+
+[Q16] inverter_string(s)
+      Lógica  : s[-1] pega o último caractere; s[:-1] remove o último.
+                Concatena o último caractere com o inverso do que sobrou.
+      Modificar: Para inverter somente as letras ignorando espaços,
+                 seria necessária lógica adicional de filtragem.
+
+[Q17] eh_palindromo(s)
+      Lógica  : Converte para minúsculas, compara s[0] com s[-1].
+                Se iguais, chama recursivamente sem as extremidades (s[1:-1]).
+      Modificar: Para considerar maiúsculas e minúsculas como caracteres distintos,
+                 remova a linha "s = s.lower()" do início da função.
+
+[Q18] soma_digitos(n)
+      Lógica  : n % 10 extrai o último dígito; n // 10 remove o último.
+                Soma o último dígito com a soma dos dígitos restantes.
+      Modificar: Para calcular o PRODUTO dos dígitos, troque "+" por "*"
+                 e altere o caso base para "return n" quando n < 10.
+
+================================================================================
+FIM DA TABELA DE CONSULTA
+================================================================================
